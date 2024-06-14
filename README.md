@@ -51,6 +51,8 @@ python md-to-html.py --md-path=./readme.md --template-path=./template.html --css
 * `--css-path`: (*Optional*) Path to the CSS file. Default is styles.css.
 * `--encoding`: (*Optional*) Encoding of the files. Default is `utf-8`.
 * `--image-to-base64`: (*Optional*) Convert images to base64 in the HTML. Accepts 1, true, True for enabling, 0, false, False for disabling. Default is 1.
+* `--use-dark-mode`: (*Optional*) Use dark mode in HTML. Accepts 1, true, True for enabling, 0, false, False for disabling. Default is 0.
+* `--dark-mode-css`: (*Optional*) Path to optional CSS file for dark mode.
 
 ## Logging
 
