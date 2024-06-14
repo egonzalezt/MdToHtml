@@ -1,0 +1,41 @@
+/* dark-mode.css */
+
+body {
+    color: #fff;
+    background-color: #121212;
+}
+
+#content {
+    border-color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    border-color: #444;
+}
+
+p {
+    color: #ddd;
+}
+
+code {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+}
+
+pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ddd;
+}
+
+a {
+    color: #80bfff;
+}
+
+a:hover {
+    color: #99ccff;
+}
+
+footer {
+    color: #999;
+}
