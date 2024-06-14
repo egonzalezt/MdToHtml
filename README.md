@@ -37,11 +37,17 @@ python md-to-html.py --md-path=./readme.md
 * `--css-path`: Path to the CSS file (default: styles.css).
 * `--encoding`: Encoding of the files (default: `utf-8`).
 * `--image-to-base64`: Convert images to base64 in the HTML (1, true, True for yes, 0, false, False for no; default: 1).
-
+* `--export-as-pdf=true`: Export the generated HTML to a pdf file (1, true, True for yes, 0, false, False for no; default: 1).
 Example with all optional arguments:
 
 ```bash
-python md-to-html.py --md-path=./readme.md --template-path=./template.html --css-path=./styles.css --encoding=utf-8 --image-to-base64=true
+python md-to-html.py \
+    --md-path=./readme.md \
+    --template-path=./template.html \
+    --css-path=./styles.css \
+    --encoding=utf-8 \
+    --image-to-base64=true \
+    --export-as-pdf=true
 ```
 
 ## Arguments

@@ -4,7 +4,8 @@ import os
 import markdown
 import re
 import base64
-from datetime import datetime
+from datetime import datetime, timezone
+from weasyprint import HTML, CSS
 
 def convert_image_to_base64(image_path):
     try:
@@ -15,7 +16,7 @@ def convert_image_to_base64(image_path):
         print(f"Error converting image {image_path} to base64: {e}")
         return None
 
-def convert_md_to_html(md_file_path, template_path='template.html', css_path='styles.css', encoding='utf-8', image_to_base64=True, use_dark_mode=False, dark_mode_css_path=None):
+def convert_md_to_html(md_file_path, template_path='template.html', css_path='styles.css', encoding='utf-8', image_to_base64=True, use_dark_mode=False, dark_mode_css_path=None, export_as_pdf=False):
     try:
         # Read the content from the Markdown file with the specified encoding
         with open(md_file_path, 'r', encoding=encoding) as md_file:
@@ -71,7 +72,7 @@ def convert_md_to_html(md_file_path, template_path='template.html', css_path='st
         full_html_content = template_content.replace("{{ content }}", html_content)
 
         # Add the timestamp in the specified section in RFC 850 format
-        current_time = datetime.utcnow().strftime('%A, %d-%b-%y %H:%M:%S UTC')
+        current_time = datetime.now(timezone.utc).strftime('%A, %d-%b-%y %H:%M:%S UTC')
         full_html_content = full_html_content.replace("{{ generated_at }}", f"Generated at {current_time}")
 
         # Insert the CSS content into the template
@@ -90,6 +91,12 @@ def convert_md_to_html(md_file_path, template_path='template.html', css_path='st
         # Write the HTML content to the file
         with open(html_file_path, 'w', encoding=encoding) as html_file:
             html_file.write(full_html_content)
+
+        # Check if export as PDF is enabled
+        if export_as_pdf:
+            pdf_file_path = os.path.splitext(md_file_path)[0] + '.pdf'
+            HTML(html_file_path).write_pdf(pdf_file_path, stylesheets=[CSS(css_path)])
+            print(f"PDF file '{pdf_file_path}' generated successfully.")
 
         return html_file_path
     except UnicodeDecodeError:
@@ -111,6 +118,7 @@ def main():
     parser.add_argument('--image-to-base64', choices=['1', 'true', 'True', '0', 'false', 'False'], default='1', help='Convert images to base64 in HTML (default: 1)')
     parser.add_argument('--use-dark-mode', choices=['1', 'true', 'True', '0', 'false', 'False'], default='0', help='Use dark mode in HTML (default: 0)')
     parser.add_argument('--dark-mode-css', default='dark-mode.css', help='Path to optional CSS file for dark mode')
+    parser.add_argument('--export-as-pdf', choices=['1', 'true', 'True', '0', 'false', 'False'], default='0', help='Export HTML as PDF (default: 0)')
 
     args = parser.parse_args()
 
@@ -121,8 +129,9 @@ def main():
     image_to_base64 = args.image_to_base64.lower() in ['1', 'true']
     use_dark_mode = args.use_dark_mode.lower() in ['1', 'true']
     dark_mode_css_path = args.dark_mode_css
+    export_as_pdf = args.export_as_pdf.lower() in ['1', 'true']
 
-    html_output_path = convert_md_to_html(md_file_path, template_path, css_path, encoding, image_to_base64, use_dark_mode, dark_mode_css_path)
+    html_output_path = convert_md_to_html(md_file_path, template_path=template_path, css_path=css_path, encoding=encoding, image_to_base64=image_to_base64, use_dark_mode=use_dark_mode, dark_mode_css_path=dark_mode_css_path, export_as_pdf=export_as_pdf)
     if html_output_path:
         print(f"The Markdown file '{md_file_path}' was converted to HTML and saved as '{html_output_path}'")
 

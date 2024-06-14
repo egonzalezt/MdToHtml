@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: Arial, sans-serif;
     line-height: 1.5;
     color: #24292e;
     background-color: #ffffff;
@@ -13,7 +13,7 @@
 }
 
 #content {
-    max-width: 800px;
+    max-width: 90%;
     margin: auto;
     padding: 16px;
     border: 1px solid #e1e4e8;
@@ -43,6 +43,8 @@ pre {
     padding: 16px;
     border-radius: 6px;
     overflow: auto;
+    max-width: 100%;
+    margin: 16px 0;
 }
 
 a {
@@ -65,46 +67,14 @@ footer {
     border: 1px solid #ddd;
     padding: 10px;
     overflow-x: auto;
-}/* dark-mode.css */
-
-body {
-    color: #fff;
-    background-color: #121212;
 }
 
-#content {
-    border-color: #333;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    border-color: #444;
-}
-
-p {
-    color: #ddd;
-}
-
-code {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ddd;
-}
-
-pre {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ddd;
-}
-
-a {
-    color: #80bfff;
-}
-
-a:hover {
-    color: #99ccff;
-}
-
-footer {
-    color: #999;
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 16px 0;
 }
 </style>
 </head>
@@ -139,9 +109,16 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 <li><code>--css-path</code>: Path to the CSS file (default: styles.css).</li>
 <li><code>--encoding</code>: Encoding of the files (default: <code>utf-8</code>).</li>
 <li><code>--image-to-base64</code>: Convert images to base64 in the HTML (1, true, True for yes, 0, false, False for no; default: 1).</li>
+<li><code>--export-as-pdf=true</code>: Export the generated HTML to a pdf file (1, true, True for yes, 0, false, False for no; default: 1).
+Example with all optional arguments:</li>
 </ul>
-<p>Example with all optional arguments:</p>
-<pre class="codehilite"><code class="language-bash">python md-to-html.py --md-path=./readme.md --template-path=./template.html --css-path=./styles.css --encoding=utf-8 --image-to-base64=true
+<pre class="codehilite"><code class="language-bash">python md-to-html.py \
+    --md-path=./readme.md \
+    --template-path=./template.html \
+    --css-path=./styles.css \
+    --encoding=utf-8 \
+    --image-to-base64=true \
+    --export-as-pdf=true
 </code></pre>
 
 <h2>Arguments</h2>
@@ -160,7 +137,7 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 <p>This project is licensed under the <a href="./LICENSE">Apache 2.0 license</a>.</p>
     </div>
     <footer>
-        Generated at Friday, 14-Jun-24 19:55:22 UTC
+        Generated at Friday, 14-Jun-24 23:37:34 UTC
     </footer>
 </body>
 </html>
