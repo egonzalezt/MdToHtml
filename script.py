@@ -22,6 +22,9 @@ def convert_md_to_html(md_file_path, template_path='template.html', css_path='st
         with open(md_file_path, 'r', encoding=encoding) as md_file:
             md_content = md_file.read()
 
+        # Handle relative paths for images
+        md_dir = os.path.dirname(os.path.abspath(md_file_path))
+
         # Convert images to base64 if enabled
         if image_to_base64:
             # Find all images in Markdown (including those with HTML)
@@ -38,7 +41,13 @@ def convert_md_to_html(md_file_path, template_path='template.html', css_path='st
                 if not image_path.lower().endswith(('.png', '.jpg', '.jpeg', '.gif')):
                     continue  # Ignore if not an image
 
-                base64_image = convert_image_to_base64(image_path)
+                # Check if image_path is relative
+                if image_path.startswith('./') or image_path.startswith('../'):
+                    full_image_path = os.path.abspath(os.path.join(md_dir, image_path))
+                else:
+                    full_image_path = os.path.abspath(image_path)
+
+                base64_image = convert_image_to_base64(full_image_path)
                 if base64_image:
                     ext = os.path.splitext(image_path)[1][1:]  # Get the image extension
                     data_uri = f"data:image/{ext};base64,{base64_image}"
